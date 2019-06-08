@@ -1,0 +1,17 @@
+# Directories
+/.idea/
+/.vscode/
+/dist/
+
+# Files
+/lolcode-go
+/.envrc
+/TODO
+.DS_Store
+
+# Patterns
+.*.sw[op]
+*.actual
+*.dot
+*.pdf
+*.ri

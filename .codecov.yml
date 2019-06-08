@@ -1,0 +1,9 @@
+coverage:
+  range: 75..90
+  round: down
+  precision: 2
+ignore:
+  - "main.go"
+  - "scripts"
+  - "spikes"
+  - "internal/ast/ast_parser.go"
