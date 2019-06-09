@@ -30,15 +30,15 @@ func TestParser(t *testing.T) {
 			require.NoError(err)
 
 			actual := ""
-			if !assert.Equal(string(expected), actual) {
+			if !assert.Equal(string(expected), actual, filename) {
 				ioutil.WriteFile(basename+".actual", []byte(actual), 0666)
 			}
 		} else {
 			expected, err := ioutil.ReadFile(basename + ".stderr")
-			require.NoError(err, parseError)
+			require.NoError(err)
 
 			actual := parseError.Error()
-			if !assert.Equal(string(expected), actual) {
+			if !assert.Equal(string(expected), actual, filename) {
 				ioutil.WriteFile(basename+".actual", []byte(actual), 0666)
 			}
 		}

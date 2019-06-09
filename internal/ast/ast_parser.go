@@ -4,7 +4,7 @@ package ast
 
 var lol_start int = 1
 var _ = lol_start
-var lol_first_final int = 17
+var lol_first_final int = 33
 var _ = lol_first_final
 var lol_error int = 0
 var _ = lol_error
@@ -58,10 +58,46 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto st_case_14
 		case 15:
 			goto st_case_15
-		case 17:
-			goto st_case_17
 		case 16:
 			goto st_case_16
+		case 17:
+			goto st_case_17
+		case 33:
+			goto st_case_33
+		case 34:
+			goto st_case_34
+		case 35:
+			goto st_case_35
+		case 18:
+			goto st_case_18
+		case 19:
+			goto st_case_19
+		case 20:
+			goto st_case_20
+		case 21:
+			goto st_case_21
+		case 22:
+			goto st_case_22
+		case 23:
+			goto st_case_23
+		case 24:
+			goto st_case_24
+		case 25:
+			goto st_case_25
+		case 26:
+			goto st_case_26
+		case 27:
+			goto st_case_27
+		case 28:
+			goto st_case_28
+		case 29:
+			goto st_case_29
+		case 30:
+			goto st_case_30
+		case 31:
+			goto st_case_31
+		case 32:
+			goto st_case_32
 		}
 	_ctr1:
 		{
@@ -80,8 +116,27 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		if p == eof {
 			goto _ctr1
 		} else {
-			if (data[p]) == c(72) {
-				goto _ctr3
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr3
+				}
+			case c(10):
+				{
+					goto _ctr4
+				}
+			case c(13):
+				{
+					goto _ctr4
+				}
+			case c(32):
+				{
+					goto _ctr3
+				}
+			case c(72):
+				{
+					goto _ctr5
+				}
 			}
 			goto _ctr2
 		}
@@ -90,9 +145,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st0
-	_ctr20:
+	_ctr23:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
+		}
+		goto _st0
+	_ctr55:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st0
+	_ctr63:
+		{
+			parser.setError(p, "expected: expression")
 		}
 		goto _st0
 	_st0:
@@ -101,7 +166,7 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		}
 	st_case_0:
 		goto _out0
-	_ctr4:
+	_ctr6:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
@@ -121,14 +186,25 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out2
 		}
 		if p == eof {
-			goto _ctr4
+			goto _ctr6
 		} else {
-			if (data[p]) == c(65) {
-				goto _ctr5
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr3
+				}
+			case c(32):
+				{
+					goto _ctr3
+				}
+			case c(72):
+				{
+					goto _ctr5
+				}
 			}
 			goto _ctr2
 		}
-	_ctr6:
+	_ctr7:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
@@ -148,19 +224,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out3
 		}
 		if p == eof {
-			goto _ctr6
+			goto _ctr7
 		} else {
-			if (data[p]) == c(73) {
-				goto _ctr7
+			if (data[p]) == c(65) {
+				goto _ctr8
 			}
 			goto _ctr2
 		}
-	_ctr8:
+	_ctr9:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st4
-	_ctr7:
+	_ctr8:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -175,26 +251,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out4
 		}
 		if p == eof {
-			goto _ctr8
+			goto _ctr9
 		} else {
-			switch data[p] {
-			case c(9):
-				{
-					goto _ctr9
-				}
-			case c(32):
-				{
-					goto _ctr9
-				}
+			if (data[p]) == c(73) {
+				goto _ctr10
 			}
 			goto _ctr2
 		}
-	_ctr10:
+	_ctr11:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st5
-	_ctr9:
+	_ctr10:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -209,30 +278,26 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out5
 		}
 		if p == eof {
-			goto _ctr10
+			goto _ctr11
 		} else {
 			switch data[p] {
 			case c(9):
 				{
-					goto _ctr9
+					goto _ctr12
 				}
 			case c(32):
 				{
-					goto _ctr9
-				}
-			case c(49):
-				{
-					goto _ctr11
+					goto _ctr12
 				}
 			}
 			goto _ctr2
 		}
-	_ctr12:
+	_ctr13:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st6
-	_ctr11:
+	_ctr12:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -247,19 +312,30 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out6
 		}
 		if p == eof {
-			goto _ctr12
+			goto _ctr13
 		} else {
-			if (data[p]) == c(46) {
-				goto _ctr13
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr12
+				}
+			case c(32):
+				{
+					goto _ctr12
+				}
+			case c(49):
+				{
+					goto _ctr14
+				}
 			}
 			goto _ctr2
 		}
-	_ctr14:
+	_ctr15:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st7
-	_ctr13:
+	_ctr14:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -274,19 +350,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out7
 		}
 		if p == eof {
-			goto _ctr14
+			goto _ctr15
 		} else {
-			if (data[p]) == c(50) {
-				goto _ctr15
+			if (data[p]) == c(46) {
+				goto _ctr16
 			}
 			goto _ctr2
 		}
-	_ctr16:
+	_ctr17:
 		{
 			parser.setError(p, "invalid version declaration")
 		}
 		goto _st8
-	_ctr15:
+	_ctr16:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -300,32 +376,22 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		if p == pe && p != eof {
 			goto _out8
 		}
-		{
-			parser.startLine(p)
-		}
 		if p == eof {
-			goto _ctr16
+			goto _ctr17
 		} else {
-			switch data[p] {
-			case c(10):
-				{
-					goto _ctr17
-				}
-			case c(13):
-				{
-					goto _ctr18
-				}
+			if (data[p]) == c(50) {
+				goto _ctr18
 			}
 			goto _ctr2
 		}
-	_ctr17:
-		{
-			parser.trace(rune((data[p])), p)
-		}
-		goto _st9
 	_ctr19:
 		{
-			parser.setError(p, "expected: \"KTHXBYE\"")
+			parser.setError(p, "invalid version declaration")
+		}
+		goto _st9
+	_ctr18:
+		{
+			parser.trace(rune((data[p])), p)
 		}
 		goto _st9
 	_st9:
@@ -337,18 +403,22 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		if p == pe && p != eof {
 			goto _out9
 		}
-		{
-			parser.startLine(p)
-		}
 		if p == eof {
 			goto _ctr19
 		} else {
-			if (data[p]) == c(75) {
-				goto _ctr21
+			switch data[p] {
+			case c(10):
+				{
+					goto _ctr20
+				}
+			case c(13):
+				{
+					goto _ctr21
+				}
 			}
-			goto _ctr20
+			goto _ctr2
 		}
-	_ctr21:
+	_ctr20:
 		{
 			parser.trace(rune((data[p])), p)
 		}
@@ -367,20 +437,38 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		if p == pe && p != eof {
 			goto _out10
 		}
+		{
+			parser.startLine(p)
+		}
 		if p == eof {
 			goto _ctr22
 		} else {
-			if (data[p]) == c(84) {
-				goto _ctr23
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr24
+				}
+			case c(32):
+				{
+					goto _ctr24
+				}
+			case c(75):
+				{
+					goto _ctr25
+				}
+			case c(86):
+				{
+					goto _ctr26
+				}
 			}
-			goto _ctr20
+			goto _ctr23
 		}
-	_ctr23:
+	_ctr24:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st11
-	_ctr24:
+	_ctr27:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -395,19 +483,34 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out11
 		}
 		if p == eof {
-			goto _ctr24
+			goto _ctr27
 		} else {
-			if (data[p]) == c(72) {
-				goto _ctr25
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr24
+				}
+			case c(32):
+				{
+					goto _ctr24
+				}
+			case c(75):
+				{
+					goto _ctr25
+				}
+			case c(86):
+				{
+					goto _ctr26
+				}
 			}
-			goto _ctr20
+			goto _ctr23
 		}
 	_ctr25:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st12
-	_ctr26:
+	_ctr28:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -422,19 +525,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out12
 		}
 		if p == eof {
-			goto _ctr26
+			goto _ctr28
 		} else {
-			if (data[p]) == c(88) {
-				goto _ctr27
+			if (data[p]) == c(84) {
+				goto _ctr29
 			}
-			goto _ctr20
+			goto _ctr23
 		}
-	_ctr27:
+	_ctr29:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st13
-	_ctr28:
+	_ctr30:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -449,19 +552,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out13
 		}
 		if p == eof {
-			goto _ctr28
+			goto _ctr30
 		} else {
-			if (data[p]) == c(66) {
-				goto _ctr29
+			if (data[p]) == c(72) {
+				goto _ctr31
 			}
-			goto _ctr20
+			goto _ctr23
 		}
-	_ctr29:
+	_ctr31:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st14
-	_ctr30:
+	_ctr32:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -476,19 +579,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out14
 		}
 		if p == eof {
-			goto _ctr30
+			goto _ctr32
 		} else {
-			if (data[p]) == c(89) {
-				goto _ctr31
+			if (data[p]) == c(88) {
+				goto _ctr33
 			}
-			goto _ctr20
+			goto _ctr23
 		}
-	_ctr31:
+	_ctr33:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st15
-	_ctr32:
+	_ctr34:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -503,54 +606,19 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 			goto _out15
 		}
 		if p == eof {
-			goto _ctr32
+			goto _ctr34
 		} else {
-			if (data[p]) == c(69) {
-				goto _ctr33
+			if (data[p]) == c(66) {
+				goto _ctr35
 			}
-			goto _ctr20
+			goto _ctr23
 		}
-	_ctr33:
-		{
-			parser.trace(rune((data[p])), p)
-		}
-		goto _st17
-	_st17:
-		if p == eof {
-			goto _out17
-		}
-		p += 1
-	st_case_17:
-		if p == pe && p != eof {
-			goto _out17
-		}
-		{
-			parser.startLine(p)
-		}
-		if p == eof {
-			goto _st17
-		} else {
-			switch data[p] {
-			case c(13):
-				{
-					goto _ctr33
-				}
-			case c(32):
-				{
-					goto _ctr33
-				}
-			}
-			if c(9) <= (data[p]) && (data[p]) <= c(10) {
-				goto _ctr33
-			}
-			goto _ctr20
-		}
-	_ctr18:
+	_ctr35:
 		{
 			parser.trace(rune((data[p])), p)
 		}
 		goto _st16
-	_ctr34:
+	_ctr36:
 		{
 			parser.setError(p, "expected: \"KTHXBYE\"")
 		}
@@ -564,23 +632,655 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		if p == pe && p != eof {
 			goto _out16
 		}
+		if p == eof {
+			goto _ctr36
+		} else {
+			if (data[p]) == c(89) {
+				goto _ctr37
+			}
+			goto _ctr23
+		}
+	_ctr37:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st17
+	_ctr38:
+		{
+			parser.setError(p, "expected: \"KTHXBYE\"")
+		}
+		goto _st17
+	_st17:
+		if p == eof {
+			goto _out17
+		}
+		p += 1
+	st_case_17:
+		if p == pe && p != eof {
+			goto _out17
+		}
+		if p == eof {
+			goto _ctr38
+		} else {
+			if (data[p]) == c(69) {
+				goto _ctr39
+			}
+			goto _ctr23
+		}
+	_ctr39:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st33
+	_st33:
+		if p == eof {
+			goto _out33
+		}
+		p += 1
+	st_case_33:
+		if p == pe && p != eof {
+			goto _out33
+		}
+		if p == eof {
+			goto _st33
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr72
+				}
+			case c(10):
+				{
+					goto _ctr73
+				}
+			case c(13):
+				{
+					goto _ctr73
+				}
+			case c(32):
+				{
+					goto _ctr72
+				}
+			}
+			goto _ctr23
+		}
+	_ctr72:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st34
+	_st34:
+		if p == eof {
+			goto _out34
+		}
+		p += 1
+	st_case_34:
+		if p == pe && p != eof {
+			goto _out34
+		}
+		if p == eof {
+			goto _st34
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr72
+				}
+			case c(10):
+				{
+					goto _ctr73
+				}
+			case c(13):
+				{
+					goto _ctr73
+				}
+			case c(32):
+				{
+					goto _ctr72
+				}
+			}
+			goto _st0
+		}
+	_ctr73:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st35
+	_st35:
+		if p == eof {
+			goto _out35
+		}
+		p += 1
+	st_case_35:
+		if p == pe && p != eof {
+			goto _out35
+		}
 		{
 			parser.startLine(p)
 		}
 		if p == eof {
-			goto _ctr34
+			goto _st35
 		} else {
 			switch data[p] {
+			case c(9):
+				{
+					goto _ctr72
+				}
 			case c(10):
 				{
-					goto _ctr17
+					goto _ctr73
 				}
-			case c(75):
+			case c(13):
+				{
+					goto _ctr73
+				}
+			case c(32):
+				{
+					goto _ctr72
+				}
+			}
+			goto _st0
+		}
+	_ctr26:
+		{
+			parser.setMark(p)
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st18
+	_st18:
+		if p == eof {
+			goto _out18
+		}
+		p += 1
+	st_case_18:
+		if p == pe && p != eof {
+			goto _out18
+		}
+		if p == eof {
+			goto _st18
+		} else {
+			if (data[p]) == c(73) {
+				goto _ctr41
+			}
+			goto _st0
+		}
+	_ctr41:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st19
+	_st19:
+		if p == eof {
+			goto _out19
+		}
+		p += 1
+	st_case_19:
+		if p == pe && p != eof {
+			goto _out19
+		}
+		if p == eof {
+			goto _st19
+		} else {
+			if (data[p]) == c(83) {
+				goto _ctr43
+			}
+			goto _st0
+		}
+	_ctr43:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st20
+	_st20:
+		if p == eof {
+			goto _out20
+		}
+		p += 1
+	st_case_20:
+		if p == pe && p != eof {
+			goto _out20
+		}
+		if p == eof {
+			goto _st20
+		} else {
+			if (data[p]) == c(73) {
+				goto _ctr45
+			}
+			goto _st0
+		}
+	_ctr45:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st21
+	_st21:
+		if p == eof {
+			goto _out21
+		}
+		p += 1
+	st_case_21:
+		if p == pe && p != eof {
+			goto _out21
+		}
+		if p == eof {
+			goto _st21
+		} else {
+			if (data[p]) == c(66) {
+				goto _ctr47
+			}
+			goto _st0
+		}
+	_ctr47:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st22
+	_st22:
+		if p == eof {
+			goto _out22
+		}
+		p += 1
+	st_case_22:
+		if p == pe && p != eof {
+			goto _out22
+		}
+		if p == eof {
+			goto _st22
+		} else {
+			if (data[p]) == c(76) {
+				goto _ctr49
+			}
+			goto _st0
+		}
+	_ctr49:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st23
+	_st23:
+		if p == eof {
+			goto _out23
+		}
+		p += 1
+	st_case_23:
+		if p == pe && p != eof {
+			goto _out23
+		}
+		if p == eof {
+			goto _st23
+		} else {
+			if (data[p]) == c(69) {
+				goto _ctr51
+			}
+			goto _st0
+		}
+	_ctr51:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st24
+	_st24:
+		if p == eof {
+			goto _out24
+		}
+		p += 1
+	st_case_24:
+		if p == pe && p != eof {
+			goto _out24
+		}
+		if p == eof {
+			goto _st24
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr53
+				}
+			case c(32):
+				{
+					goto _ctr53
+				}
+			}
+			goto _st0
+		}
+	_ctr53:
+		{
+			program.addVISIBLE(parser.getMark())
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st25
+	_ctr54:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st25
+	_st25:
+		if p == eof {
+			goto _out25
+		}
+		p += 1
+	st_case_25:
+		if p == pe && p != eof {
+			goto _out25
+		}
+		if p == eof {
+			goto _ctr54
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr53
+				}
+			case c(32):
+				{
+					goto _ctr53
+				}
+			case c(34):
+				{
+					goto _ctr56
+				}
+			}
+			goto _ctr55
+		}
+	_ctr58:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st26
+	_ctr56:
+		{
+			parser.setMark(p)
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st26
+	_ctr57:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st26
+	_st26:
+		if p == eof {
+			goto _out26
+		}
+		p += 1
+	st_case_26:
+		if p == pe && p != eof {
+			goto _out26
+		}
+		if p == eof {
+			goto _ctr57
+		} else {
+			if (data[p]) == c(34) {
+				goto _ctr59
+			}
+			goto _ctr58
+		}
+	_ctr60:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st27
+	_ctr59:
+		{
+			program.addYARN(parser.getYARN(p))
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st27
+	_st27:
+		if p == eof {
+			goto _out27
+		}
+		p += 1
+	st_case_27:
+		if p == pe && p != eof {
+			goto _out27
+		}
+		if p == eof {
+			goto _ctr60
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr61
+				}
+			case c(10):
+				{
+					goto _ctr20
+				}
+			case c(13):
 				{
 					goto _ctr21
 				}
+			case c(32):
+				{
+					goto _ctr61
+				}
 			}
-			goto _ctr20
+			goto _ctr55
+		}
+	_ctr61:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st28
+	_ctr62:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st28
+	_st28:
+		if p == eof {
+			goto _out28
+		}
+		p += 1
+	st_case_28:
+		if p == pe && p != eof {
+			goto _out28
+		}
+		if p == eof {
+			goto _ctr62
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr61
+				}
+			case c(32):
+				{
+					goto _ctr61
+				}
+			case c(34):
+				{
+					goto _ctr64
+				}
+			}
+			goto _ctr63
+		}
+	_ctr66:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st29
+	_ctr64:
+		{
+			parser.setMark(p)
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st29
+	_ctr65:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st29
+	_st29:
+		if p == eof {
+			goto _out29
+		}
+		p += 1
+	st_case_29:
+		if p == pe && p != eof {
+			goto _out29
+		}
+		if p == eof {
+			goto _ctr65
+		} else {
+			if (data[p]) == c(34) {
+				goto _ctr67
+			}
+			goto _ctr66
+		}
+	_ctr67:
+		{
+			program.addYARN(parser.getYARN(p))
+		}
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st30
+	_ctr68:
+		{
+			parser.setError(p, "expected: expression")
+		}
+		goto _st30
+	_st30:
+		if p == eof {
+			goto _out30
+		}
+		p += 1
+	st_case_30:
+		if p == pe && p != eof {
+			goto _out30
+		}
+		if p == eof {
+			goto _ctr68
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr61
+				}
+			case c(10):
+				{
+					goto _ctr20
+				}
+			case c(13):
+				{
+					goto _ctr21
+				}
+			case c(32):
+				{
+					goto _ctr61
+				}
+			}
+			goto _ctr63
+		}
+	_ctr21:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st31
+	_ctr69:
+		{
+			parser.setError(p, "expected: \"KTHXBYE\"")
+		}
+		goto _st31
+	_st31:
+		if p == eof {
+			goto _out31
+		}
+		p += 1
+	st_case_31:
+		if p == pe && p != eof {
+			goto _out31
+		}
+		{
+			parser.startLine(p)
+		}
+		if p == eof {
+			goto _ctr69
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr24
+				}
+			case c(10):
+				{
+					goto _ctr20
+				}
+			case c(32):
+				{
+					goto _ctr24
+				}
+			case c(75):
+				{
+					goto _ctr25
+				}
+			case c(86):
+				{
+					goto _ctr26
+				}
+			}
+			goto _ctr23
+		}
+	_ctr70:
+		{
+			parser.setError(p, "invalid version declaration")
+		}
+		goto _st32
+	_ctr4:
+		{
+			parser.trace(rune((data[p])), p)
+		}
+		goto _st32
+	_st32:
+		if p == eof {
+			goto _out32
+		}
+		p += 1
+	st_case_32:
+		if p == pe && p != eof {
+			goto _out32
+		}
+		{
+			parser.startLine(p)
+		}
+		if p == eof {
+			goto _ctr70
+		} else {
+			switch data[p] {
+			case c(9):
+				{
+					goto _ctr3
+				}
+			case c(10):
+				{
+					goto _ctr4
+				}
+			case c(13):
+				{
+					goto _ctr4
+				}
+			case c(32):
+				{
+					goto _ctr3
+				}
+			case c(72):
+				{
+					goto _ctr5
+				}
+			}
+			goto _ctr2
 		}
 	_out1:
 		cs = 1
@@ -630,11 +1330,65 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	_out15:
 		cs = 15
 		goto _out
+	_out16:
+		cs = 16
+		goto _out
 	_out17:
 		cs = 17
 		goto _out
-	_out16:
-		cs = 16
+	_out33:
+		cs = 33
+		goto _out
+	_out34:
+		cs = 34
+		goto _out
+	_out35:
+		cs = 35
+		goto _out
+	_out18:
+		cs = 18
+		goto _out
+	_out19:
+		cs = 19
+		goto _out
+	_out20:
+		cs = 20
+		goto _out
+	_out21:
+		cs = 21
+		goto _out
+	_out22:
+		cs = 22
+		goto _out
+	_out23:
+		cs = 23
+		goto _out
+	_out24:
+		cs = 24
+		goto _out
+	_out25:
+		cs = 25
+		goto _out
+	_out26:
+		cs = 26
+		goto _out
+	_out27:
+		cs = 27
+		goto _out
+	_out28:
+		cs = 28
+		goto _out
+	_out29:
+		cs = 29
+		goto _out
+	_out30:
+		cs = 30
+		goto _out
+	_out31:
+		cs = 31
+		goto _out
+	_out32:
+		cs = 32
 		goto _out
 	_out:
 		{

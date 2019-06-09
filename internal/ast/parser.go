@@ -9,11 +9,17 @@ import (
 )
 
 type Parser struct {
-	data       []rune
+	data []rune
+
 	errMessage string
-	errOffset  int
+	errColumn  int
+
 	lineNumber int
 	lineOffset int
+
+	markOffset int
+	markLineno int
+	markColumn int
 }
 
 func (p *Parser) Parse(r io.Reader) (*Program, error) {
@@ -37,15 +43,31 @@ func (p *Parser) getError(cs int) *parseError {
 		cs:         cs,
 		data:       p.data,
 		errMessage: p.errMessage,
-		errOffset:  p.errOffset,
+		errColumn:  p.errColumn,
 		lineNumber: p.lineNumber,
 		lineOffset: p.lineOffset,
 	}
 }
 
+func (p *Parser) getMark() (int, int) {
+	return p.markLineno, p.markColumn
+}
+
+func (p *Parser) getYARN(offset int) YARN {
+	runes := p.data[p.markOffset+1 : offset]
+	s := unescape(string(runes))
+	return YARN(s)
+}
+
 func (p *Parser) setError(offset int, message string) {
 	p.errMessage = message
-	p.errOffset = offset - p.lineOffset
+	p.errColumn = offset - p.lineOffset
+}
+
+func (p *Parser) setMark(offset int) {
+	p.markOffset = offset
+	p.markLineno = p.lineNumber
+	p.markColumn = offset - p.lineOffset + 1
 }
 
 func (p *Parser) startLine(offset int) {
@@ -54,5 +76,8 @@ func (p *Parser) startLine(offset int) {
 }
 
 func (p *Parser) trace(r rune, offset int) {
-	fmt.Fprintf(os.Stderr, "trace: char=%q offset=%v\n", r, offset)
+	fmt.Fprintf(os.Stderr,
+		"trace: char=%-4q\toffset=%v\tlineNumber=%d\tlineOffset=%d\n",
+		r, offset, p.lineNumber, p.lineOffset,
+	)
 }

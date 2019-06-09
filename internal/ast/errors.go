@@ -8,7 +8,7 @@ type parseError struct {
 	cs         int
 	data       []rune
 	errMessage string
-	errOffset  int
+	errColumn  int
 	lineNumber int
 	lineOffset int
 }
@@ -26,9 +26,9 @@ func (e *parseError) Error() string {
 		"error: %s (line=%d col=%d)\n  %s\n  %*s\n",
 		e.errMessage,
 		e.lineNumber+1,
-		e.errOffset+1,
+		e.errColumn+1,
 		string(line),
-		e.errOffset+1,
+		e.errColumn+1,
 		"^",
 	)
 }

@@ -20,19 +20,39 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	cs, p, pe := 0, 0, eof;
 	%%{
 
+	action addVISIBLE {
+	    program.addVISIBLE(parser.getMark())
+	}
+	action addYARN {
+	    program.addYARN(parser.getYARN(fpc))
+	}
+	action setMark {
+	    parser.setMark(fpc)
+	}
 	action trace {
 	    parser.trace(rune(fc), fpc)
 	}
 
-	eol = ( '\r'? '\n' | '\r' '\n'? ) $from{ parser.startLine(fpc) };
+	eol = ( '\r'? '\n' | '\r' '\n'? ) %from{ parser.startLine(fpc) };
 	sep = [ \t]+;
 	ws = ( sep | eol )+;
 
-	head = ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
-	tail = ('KTHXBYE' ws?) $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
+	head = sep? ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
+	tail = sep? ('KTHXBYE') $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
 
-	main := (head eol tail) $trace
-		;
+	yarn = ('"' [^"]* '"') >setMark @addYARN;
+	expr = yarn;
+
+	visible = (
+	    'VISIBLE' >setMark sep @addVISIBLE
+	    expr $err{ parser.setError(fpc, "expected: expression") }
+	    (sep expr $err{ parser.setError(fpc, "expected: expression") })*
+	);
+	statement = sep? visible;
+
+	main := (eol* head eol
+		(statement eol)*
+		tail ws? ) $trace;
 
 	write init;
 	write exec;
