@@ -40,13 +40,26 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	head = sep? ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
 	tail = sep? ('KTHXBYE') $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
 
-	yarn = ('"' [^"]* '"') >setMark @addYARN;
-	expr = yarn;
+	yarn = (
+	    start: (
+		'"' -> raw
+	    ),
+	    raw: (
+		':' -> one |
+		'"' -> final |
+		(any-[:"\r\n]) -> raw
+	    ),
+	    one: (
+		any -> raw
+	    )
+	) >setMark %addYARN
+	<err{ parser.setError(fpc, "unexpected end of YARN") };
+	expr = yarn >err{ parser.setError(fpc, "expected: YARN") };
 
 	visible = (
-	    'VISIBLE' >setMark sep @addVISIBLE
-	    expr $err{ parser.setError(fpc, "expected: expression") }
-	    (sep expr $err{ parser.setError(fpc, "expected: expression") })*
+	    'VISIBLE' >setMark @err{ parser.setError(fpc, "expected: \"VISIBLE\"") }
+	    sep @addVISIBLE
+	    expr (sep expr)*
 	);
 	statement = sep? visible;
 

@@ -9,6 +9,8 @@ import (
 )
 
 type Parser struct {
+	Trace bool
+
 	data []rune
 
 	errMessage string
@@ -54,7 +56,7 @@ func (p *Parser) getMark() (int, int) {
 }
 
 func (p *Parser) getYARN(offset int) YARN {
-	runes := p.data[p.markOffset+1 : offset]
+	runes := p.data[p.markOffset+1 : offset-1]
 	s := unescape(string(runes))
 	return YARN(s)
 }
@@ -76,8 +78,10 @@ func (p *Parser) startLine(offset int) {
 }
 
 func (p *Parser) trace(r rune, offset int) {
-	fmt.Fprintf(os.Stderr,
-		"trace: char=%-4q\toffset=%v\tlineNumber=%d\tlineOffset=%d\n",
-		r, offset, p.lineNumber, p.lineOffset,
-	)
+	if p.Trace {
+		fmt.Fprintf(
+			os.Stderr, "trace: char=%-4q\toffset=%-3d\tlineNumber=%-3d\tlineOffset=%-3d\n",
+			r, offset, p.lineNumber, p.lineOffset,
+		)
+	}
 }

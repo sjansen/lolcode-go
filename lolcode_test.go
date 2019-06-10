@@ -1,7 +1,9 @@
 package main_test
 
 import (
+	"bytes"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"sort"
 	"testing"
@@ -23,19 +25,34 @@ func TestParser(t *testing.T) {
 	for _, filename := range filenames {
 		basename := filename[:len(filename)-4]
 
-		p := &ast.Parser{}
-		_, parseError := p.ParseFile(filename)
+		parser := &ast.Parser{}
+		program, parseError := parser.ParseFile(filename)
 		if parseError == nil {
 			expected, err := ioutil.ReadFile(basename + ".stdout")
-			require.NoError(err)
+			if os.IsNotExist(err) {
+				expected = []byte{}
+			} else {
+				require.NoError(err)
+			}
 
-			actual := ""
+			buf := &bytes.Buffer{}
+			env := &ast.Environment{
+				Output: buf,
+			}
+
+			program.Execute(env)
+
+			actual := buf.String()
 			if !assert.Equal(string(expected), actual, filename) {
 				ioutil.WriteFile(basename+".actual", []byte(actual), 0666)
 			}
 		} else {
 			expected, err := ioutil.ReadFile(basename + ".stderr")
-			require.NoError(err)
+			if os.IsNotExist(err) {
+				expected = []byte{}
+			} else {
+				require.NoError(err)
+			}
 
 			actual := parseError.Error()
 			if !assert.Equal(string(expected), actual, filename) {

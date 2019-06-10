@@ -5,6 +5,7 @@
 
 # Files
 /lolcode-go
+/lolcode-go.test
 /.envrc
 /TODO
 .DS_Store
