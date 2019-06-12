@@ -10,7 +10,7 @@ import (
 func TestParse(t *testing.T) {
 	require := require.New(t)
 
-	for _, tc := range []struct {
+	for idx, tc := range []struct {
 		Program  string
 		Expected *Program
 	}{{Program: `
@@ -56,7 +56,7 @@ func TestParse(t *testing.T) {
 		actual, err := p.Parse(
 			strings.NewReader(tc.Program),
 		)
-		require.NoError(err)
-		require.Equal(tc.Expected, actual)
+		require.NoError(err, idx)
+		require.Equal(tc.Expected, actual, idx)
 	}
 }

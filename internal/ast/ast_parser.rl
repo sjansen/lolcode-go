@@ -33,9 +33,9 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	    parser.trace(rune(fc), fpc)
 	}
 
-	eol = ( '\r'? '\n' | '\r' '\n'? ) %from{ parser.startLine(fpc) };
+	comment = [ \t]* 'BTW' ([ \t][^\r\n]+)?;
+	eol = comment? ( '\r'?'\n'|'\r''\n'? ) %from{ parser.startLine(fpc) };
 	sep = [ \t]+;
-	ws = ( sep | eol )+;
 
 	head = sep? ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
 	tail = sep? ('KTHXBYE') $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
@@ -64,8 +64,8 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	statement = sep? visible;
 
 	main := (eol* head eol
-		(statement eol)*
-		tail ws? ) $trace;
+		(statement? eol)*
+		tail eol* sep?) $trace;
 
 	write init;
 	write exec;
