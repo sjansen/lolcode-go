@@ -33,12 +33,16 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	    parser.trace(rune(fc), fpc)
 	}
 
-	comment = [ \t]* 'BTW' ([ \t][^\r\n]+)?;
-	eol = comment? ( '\r'?'\n'|'\r''\n'? ) %from{ parser.startLine(fpc) };
-	sep = [ \t]+;
+	nl = ( '\r'?'\n'|'\r''\n'? ) %from{ parser.startLine(fpc) };
+	ws = [ \t];
+	sep = ws+;
 
-	head = sep? ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
-	tail = sep? ('KTHXBYE') $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
+	btw = ws* 'BTW' (ws [^\r\n]+)?;
+	eol = btw? nl;
+	obtw = ws* 'OBTW' (ws [^\r\n]+)? nl ([^\r\n]* nl)* ([^\r\n]+ ws)? 'TLDR' ws* nl;
+
+	head = ws* ('HAI' sep '1.2') $err{ parser.setError(fpc, "invalid version declaration") };
+	tail = ws* ('KTHXBYE') $err{ parser.setError(fpc, "expected: \"KTHXBYE\"") };
 
 	yarn = (
 	    start: (
@@ -53,7 +57,7 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 		any -> raw
 	    )
 	) >setMark %addYARN
-	<err{ parser.setError(fpc, "unexpected end of YARN") };
+	  <err{ parser.setError(fpc, "unexpected end of YARN") };
 	expr = yarn >err{ parser.setError(fpc, "expected: YARN") };
 
 	visible = (
@@ -61,11 +65,14 @@ func (parser *Parser) parse(data []rune) (*Program, error) {
 	    sep @addVISIBLE
 	    expr (sep expr)*
 	);
-	statement = sep? visible;
+	statement = ws* visible;
 
-	main := (eol* head eol
-		(statement? eol)*
-		tail eol* sep?) $trace;
+	main := (( obtw|ws* eol )*
+		head eol
+		( obtw|ws* statement? eol )*
+		tail ( eol
+		  ( obtw|ws* eol )*
+		) ws* ) $trace;
 
 	write init;
 	write exec;
