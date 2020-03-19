@@ -2,15 +2,18 @@
 set -e
 
 echo ========================================
+printenv | sort
+echo ========================================
 go version
 echo ========================================
-printenv | sort
+go env
 echo ========================================
 mkdir -p dist
 go test -race -coverpkg .,./internal/... -coverprofile=dist/coverage.txt -tags integration ./...
 echo ========================================
 echo go vet...
-go vet -tags integration ./...
+go vet  ./...
 echo ========================================
 echo golangci-lint...
+golangci-lint version
 golangci-lint run
